@@ -1,0 +1,33 @@
+name: update website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.20.2
+      - run: pnpm install
+
+      # todo: add cache
+      # todo 这里的 user 和 email 和 GitHub url 都使用变量
+
+      - name: Build
+        run: pnpm run docs:build
+
+      - name: Deploy to Pages
+        run: |
+          cd docs/.vitepress/dist
+          git init
+          git config init.defaultBranch master
+          git config user.email "{{secrets.EMAIL}}"
+          git config user.name "Otto"
+          git add -A
+          git commit -m 'deploy'
+          git push -f https://Otto:${{ secrets.TOKEN }}@github.com/Otto-J/vitepress-docs-site-template.git master:gh-pages
