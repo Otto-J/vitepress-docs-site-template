@@ -22,6 +22,7 @@
 
 ## roadmap
 
+- [ ] 补充 actions 里创建 secrets 的介绍
 - [ ] 完善 readme.md
 - [ ] actions 里尽可能使用变量，减少操作步骤
 - [ ] 完善自动生成 `data.json` 的脚本
