@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   build-deploy:
-    if: ${{ github.event.commits[0].message === 'Initial commit' }}
+    if: ${{ github.event.commits[0].message == 'Initial commit' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
