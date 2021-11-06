@@ -4,5 +4,3 @@ node_modules
 .temp
 .cache
 
-# 技术栈无关
-pnpm-lock.yaml

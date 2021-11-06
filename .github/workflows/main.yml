@@ -9,14 +9,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.20.2
-      - run: pnpm install
-
-      # todo: add cache
-      # todo 这里的 user 和 email 和 GitHub url 都使用变量
+      - run: pnpm install --prefer-offline
 
       - name: Build
         run: pnpm run docs:build
@@ -24,10 +29,10 @@ jobs:
       - name: Deploy to Pages
         run: |
           cd docs/.vitepress/dist
+          git config --global init.defaultBranch master
           git init
-          git config init.defaultBranch master
-          git config user.email "{{secrets.EMAIL}}"
-          git config user.name "Otto"
+          git config user.email "${{secrets.EMAIL}}"
+          git config user.name "${{github.repository_owner}}"
           git add -A
           git commit -m 'deploy'
-          git push -f https://Otto:${{ secrets.TOKEN }}@github.com/Otto-J/vitepress-docs-site-template.git master:gh-pages
+          git push -f https://${{github.repository_owner}}:${{ secrets.TOKEN }}@github.com/${{github.repository}}.git master:gh-pages
