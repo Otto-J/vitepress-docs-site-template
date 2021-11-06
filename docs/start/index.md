@@ -27,15 +27,15 @@ go start.
 
 1. 选择 "use template" 使用本模板，并建立仓库。
 
-![create repo](/assets/create-repo.png)
+![create repo](../assets/create-repo.png)
 
 2. 准备 token。点击 [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) 按照截图进行操作，名称 Name 和 过期时间 Expiration 可自定义。
 
-![new token](/assets/new-token.png)
+![new token](../assets/new-token.png)
 
 3. 点击创建之后，会看到下图，请务必点击第二个圆框处进行自动复制，并将复制到的 token 保存到妥善位置。
 
-![copy token](/assets/copy-token.png)
+![copy token](../assets/copy-token.png)
 
 4. 设置仓库 street。这一步是把 token 和仓库操作绑定。进入仓库设置 `/settings/secrets/actions`，点击 `New repository secret`。分别创建：
 
